@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDashboard } from '../context/DashboardContext';
 import ChartTypeSelector from './charts/ChartTypeSelector';
 import MultiChartView from './charts/MultiChartView';
+import AnimatedNumber from './AnimatedNumber';
 
 // Icons for the stat cards
 const icons = {
@@ -67,7 +68,12 @@ const StatCard = ({ title, value, icon, change, target, chartData, initialChartT
         <div>
           <h3 className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>{title}</h3>
           <p className={`text-2xl font-semibold mt-1 ${isDarkMode ? 'text-white' : 'text-[#0C0950]'}`}>
-            {typeof value === 'number' ? value.toLocaleString() : value}
+            {typeof value === 'number' ? (
+              <AnimatedNumber 
+                value={value} 
+                formatter={(val) => val.toLocaleString()}
+              />
+            ) : value}
           </p>
         </div>
         <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isDarkMode ? 'bg-[#1E3E62]/50 text-white' : 'bg-[#F8F7FF] text-[#261FB3]'}`}>

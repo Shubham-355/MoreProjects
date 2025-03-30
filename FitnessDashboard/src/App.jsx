@@ -117,6 +117,18 @@ function App() {
     setShowOnboarding(false);
   };
 
+  // Simulate initial data loading
+  useEffect(() => {
+    // If we want to simulate initial data loading
+    if (isLoading) {
+      const loadingTimer = setTimeout(() => {
+        setIsLoading(false);
+      }, 1500); // 1.5 seconds
+      
+      return () => clearTimeout(loadingTimer);
+    }
+  }, [isLoading]);
+
   if (isLoading) {
     return (
       <div className={`flex items-center justify-center h-screen w-screen ${isDarkMode ? 'bg-black' : 'bg-[#FBE4D6]'}`}>

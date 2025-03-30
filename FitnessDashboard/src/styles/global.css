@@ -1,0 +1,58 @@
+/* Global scrollbar styles */
+
+/* Variables for both themes */
+:root {
+  /* Light theme scrollbar colors */
+  --scrollbar-bg: #f1f1f1;
+  --scrollbar-thumb: #c5c1ff;
+  --scrollbar-thumb-hover: #261FB3;
+}
+
+/* Dark theme */
+.dark {
+  /* Dark theme scrollbar colors */
+  --scrollbar-bg: #0B192C;
+  --scrollbar-thumb: #1E3E62;
+  --scrollbar-thumb-hover: #FF6500;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-bg);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
+}
+
+/* Edge and IE */
+@supports (-ms-overflow-style: none) {
+  /* Edge and IE specific hacks */
+  * {
+    -ms-overflow-style: auto;
+  }
+}
+
+/* Extra animation for smooth transitions */
+@media (prefers-reduced-motion: no-preference) {
+  ::-webkit-scrollbar-thumb {
+    transition: background-color 0.3s ease;
+  }
+}

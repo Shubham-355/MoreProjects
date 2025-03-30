@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
+import './styles/global.css'; // Import the global stylesheet with scrollbar styles
 
 // Add error handling to catch any render errors
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -1,6 +1,7 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useThemeColors } from '../hooks/useThemeColors';
+import { generateRandomData, generateWeeklyData, updateRandomData } from '../utils/dataUtils';
 
 const DashboardContext = createContext();
 
@@ -47,8 +48,11 @@ export const DashboardProvider = ({ children, initialTheme }) => {
   
   // Mock data or other state initializations
   const [userData, setUserData] = useState(sampleUserData);
-  const [todayStats, setTodayStats] = useState(sampleTodayStats);
-  const [weeklyStats, setWeeklyStats] = useState(sampleWeeklyStats);
+  const [todayStats, setTodayStats] = useState(generateRandomData());
+  const [weeklyStats, setWeeklyStats] = useState({ 
+    activity: generateWeeklyData(),
+    workouts: sampleWeeklyStats.workouts || []
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState(null);
   
@@ -105,6 +109,46 @@ export const DashboardProvider = ({ children, initialTheme }) => {
     
     fetchData();
   }, []);
+  
+  // Update data periodically to simulate real-time changes
+  useEffect(() => {
+    // Simulate data updates every 30 seconds
+    const dataUpdateInterval = setInterval(() => {
+      setTodayStats(prevStats => updateRandomData(prevStats));
+      
+      // Also update the weekly data for today
+      setWeeklyStats(prev => {
+        const updatedActivity = [...prev.activity];
+        const today = new Date().getDay() - 1; // Convert to 0-6 for Mon-Sun
+        if (today >= 0 && today < updatedActivity.length) {
+          updatedActivity[today] = {
+            ...updatedActivity[today],
+            value: todayStats.steps,
+            calories: todayStats.caloriesBurned,
+            active: todayStats.activeMinutes,
+            water: todayStats.waterIntake
+          };
+        }
+        return {
+          ...prev,
+          activity: updatedActivity
+        };
+      });
+      
+      // Update daily goals progress
+      setDailyGoals(prev => ({
+        ...prev,
+        steps: { ...prev.steps, current: todayStats.steps },
+        calories: { ...prev.calories, current: todayStats.caloriesBurned },
+        water: { ...prev.water, current: todayStats.waterIntake },
+        sleep: { ...prev.sleep, current: todayStats.sleepHours },
+        exercise: { ...prev.exercise, current: todayStats.activeMinutes }
+      }));
+      
+    }, 30000); // 30 seconds
+    
+    return () => clearInterval(dataUpdateInterval);
+  }, [todayStats]);
   
   // Open modal to add/edit goal
   const openGoalModal = (goal = null) => {
