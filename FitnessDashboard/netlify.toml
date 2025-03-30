@@ -15,7 +15,6 @@
   status = 200
   force = true
 
-# Add to the existing redirects section:
 [[redirects]]
   from = "/index-*.js"
   to = "/index.html"
@@ -28,6 +27,11 @@
   status = 200
   force = false
 
+[[redirects]]
+  from = "/404"
+  to = "/index.html"
+  status = 404
+
 # Set proper MIME types for JavaScript modules, CSS, and media files
 [[headers]]
   for = "/*.js"
@@ -38,7 +42,7 @@
 [[headers]]
   for = "/*.mjs"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "application/javascript"
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
@@ -100,28 +104,21 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+[[headers]]
+  for = "/*.ttf"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Add security headers for all pages
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' *.netlify.app; worker-src 'self' blob:;"
-  [headers.values]
-# Avoid duplicate redirect rules-age=31536000, immutable"
-# The 404 redirect should come after the main SPA redirect
-[[redirects]]y headers for all pages
-  from = "/404"
-  to = "/index.html"
-  status = 404ues]
-    X-Content-Type-Options = "nosniff"
-# Enable brotli compression"
-[build.processing]on = "1; mode=block"
-  skip_processing = falserict-origin-when-cross-origin"
-[build.processing.css] = "geolocation=(), microphone=(), camera=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' *.netlify.app; font-src 'self' data:; worker-src 'self' blob:;"
-
-# Avoid duplicate redirect rules
-# The 404 redirect should come after the main SPA redirect
-[[redirects]]
-  from = "/404"
-  to = "/index.html"
-  status = 404
 
 # Enable brotli compression
 [build.processing]
