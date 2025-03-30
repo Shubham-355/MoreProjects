@@ -129,6 +129,12 @@ function App() {
     }
   }, [isLoading]);
 
+  // Handle video loading errors
+  const handleVideoError = () => {
+    console.error("Video failed to load, skipping animation");
+    handleAnimationEnded();
+  };
+
   if (isLoading) {
     return (
       <div className={`flex items-center justify-center h-screen w-screen ${isDarkMode ? 'bg-black' : 'bg-[#FBE4D6]'}`}>
@@ -139,6 +145,7 @@ function App() {
           loop={false} // Never loop - play once only
           className="w-40 h-40 object-contain" // Reduced from w-64 h-64 to w-40 h-40
           onEnded={handleAnimationEnded}
+          onError={handleVideoError}
           ref={(el) => {
             // Set playback rate to speed up the animation significantly
             if (el) {
@@ -146,7 +153,12 @@ function App() {
             }
           }}
         >
-          <source src="/Animation - 1743339629036.webm" type="video/webm" />
+          {/* Using relative path instead of root path */}
+          <source src="./Animation - 1743339629036.webm" type="video/webm" />
+          {/* Add fallback format */}
+          <source src="./Animation - 1743339629036.mp4" type="video/mp4" />
+          {/* Add fallback text */}
+          Your browser does not support the video tag.
         </video>
       </div>
     );

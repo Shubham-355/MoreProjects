@@ -1,0 +1,16 @@
+# Headers for Netlify
+
+/*.js
+  Content-Type: application/javascript
+
+/*.mjs
+  Content-Type: application/javascript
+
+/*.webm
+  Content-Type: video/webm
+
+/*.mp4
+  Content-Type: video/mp4
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
