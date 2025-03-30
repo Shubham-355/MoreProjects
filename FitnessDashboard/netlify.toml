@@ -103,15 +103,12 @@
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' *.netlify.app; font-src 'self' data:; worker-src 'self' blob:;"
 
-# Custom 404 page
+# Avoid duplicate redirect rules
+# The 404 redirect should come after the main SPA redirect
 [[redirects]]
-  from = "/*"
+  from = "/404"
   to = "/index.html"
   status = 404
-
-# Pre-rendering for better SEO and performance
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
 
 # Enable brotli compression
 [build.processing]
