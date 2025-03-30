@@ -8,40 +8,30 @@
   # Node.js version
   environment = { NODE_VERSION = "18" }
 
-# Redirects for SPA routing
+# Redirects for SPA routing - this should be the LAST redirect rule
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  force = true
+  force = false
+  conditions = {Role = ["anonymous"]}
 
-# Fix JavaScript loading issues
+# Handle asset files with hashed names
 [[redirects]]
-  from = "/index-*.js"
-  to = "/:splat.js"
+  from = "/assets/*"
+  to = "/assets/:splat"
   status = 200
   force = false
 
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
 # Set proper MIME types for JavaScript modules, CSS, and media files
 [[headers]]
-  for = "/*.js"
+  for = "/assets/*.js"
   [headers.values]
     Content-Type = "application/javascript"
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/*.mjs"
-  [headers.values]
-    Content-Type = "application/javascript"
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.css"
+  for = "/assets/*.css"
   [headers.values]
     Content-Type = "text/css"
     Cache-Control = "public, max-age=31536000, immutable"
@@ -114,12 +104,6 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' *.netlify.app; worker-src 'self' blob:;"
-
-# Custom 404 page
-[[redirects]]
-  from = "/404"
-  to = "/index.html"
-  status = 404
 
 # Enable brotli compression
 [build.processing]

@@ -182,6 +182,43 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
+
+      <div className="flex items-center justify-between mb-2">
+        <div>
+          <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Latest</span>
+          <div className="font-bold text-xl">
+            <span className={isDarkMode ? 'text-white' : 'text-[#0C0950]'}>8123</span>
+            <span className={`text-sm font-normal ml-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>steps</span>
+          </div>
+        </div>
+        
+        <div className={`px-3 py-1 rounded-full text-xs ${
+          isDarkMode ? 'bg-yellow-900/30 text-yellow-200' : 'bg-yellow-100 text-yellow-800'
+        }`}>
+          Below Average
+        </div>
+      </div>
+
+      <div className="flex justify-between mt-4 text-center">
+        <div>
+          <span className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Total</span>
+          <div className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            62153<span className={`text-xs ml-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>steps</span>
+          </div>
+        </div>
+        <div>
+          <span className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Average</span>
+          <div className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            8879<span className={`text-xs ml-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>steps</span>
+          </div>
+        </div>
+        <div>
+          <span className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Peak</span>
+          <div className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            11567<span className={`text-xs ml-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>steps</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
