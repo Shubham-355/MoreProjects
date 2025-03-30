@@ -1,0 +1,178 @@
+/* Custom video player styles (minimal version of Plyr's styling) */
+
+.plyr {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  direction: ltr;
+  overflow: hidden;
+}
+
+.plyr video {
+  width: 100%;
+  height: 100%;
+}
+
+.plyr__control {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.plyr__control:hover {
+  background: rgba(145, 71, 255, 0.7);
+}
+
+.plyr__control--overlaid {
+  background: rgba(145, 71, 255, 0.8);
+  border-radius: 100%;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.plyr__control--overlaid:hover {
+  background: rgb(145, 71, 255);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.plyr__progress {
+  display: flex;
+  align-items: center;
+  height: 8px;
+  width: 100%;
+  position: relative;
+}
+
+.plyr__progress__buffer,
+.plyr__progress input[type=range] {
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+  height: 5px;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.plyr__progress input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: #9147ff;
+  border: 0;
+  border-radius: 50%;
+  height: 13px;
+  width: 13px;
+}
+
+.plyr__menu {
+  display: inline-block;
+  position: relative;
+}
+
+.plyr__volume {
+  display: flex;
+  align-items: center;
+}
+
+.plyr__volume input[type=range] {
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+  height: 5px;
+  margin: 0 10px;
+  padding: 0;
+  width: 80px;
+}
+
+.plyr__volume input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: #9147ff;
+  border: 0;
+  border-radius: 50%;
+  height: 13px;
+  width: 13px;
+}
+
+.plyr--full-ui {
+  -webkit-box-direction: normal;
+  -webkit-font-smoothing: antialiased;
+  direction: ltr;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  line-height: 1.7;
+  max-width: 100%;
+  min-width: 200px;
+  position: relative;
+  text-shadow: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.plyr--full-ui.plyr--video {
+  background: #000;
+  overflow: hidden;
+}
+
+.plyr--video.plyr--menu-open {
+  overflow: visible;
+}
+
+/* Custom controls positioning */
+.plyr__controls {
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+  bottom: 0;
+  color: #fff;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 5px 10px 10px;
+  position: absolute;
+  transition: opacity 0.4s ease;
+  width: 100%;
+  z-index: 10;
+}
+
+.plyr__controls__item {
+  margin-left: 5px;
+}
+
+.plyr__controls__item:first-child {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.plyr__controls__item.plyr__progress__container {
+  flex: 1;
+  min-width: 0;
+}
+
+.plyr__time {
+  font-size: 14px;
+}
+
+.plyr__time + .plyr__time {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .plyr__time + .plyr__time {
+    display: inline-block;
+  }
+}
+
+.plyr--video .plyr__controls {
+  padding-top: 35px;
+}

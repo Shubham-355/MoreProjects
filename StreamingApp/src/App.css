@@ -1,0 +1,206 @@
+/* Custom utilities that extend Tailwind - keep these minimal */
+
+/* Line clamp utilities already part of Tailwind plugin */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Optimized animated gradient background with will-change for better performance */
+.animated-gradient {
+  background-size: 200% 200%;
+  animation: gradient 15s ease infinite;
+  will-change: background-position;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Apple-inspired gradient animations with performance optimizations */
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
+    will-change: background-position;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+    will-change: auto;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 15s ease infinite;
+  background-size: 200% 100%;
+}
+
+/* MAXIMUM ANTI-SCROLLING PROTECTION */
+/* This will absolutely prevent any automatic scrolling */
+html.stream-mode,
+html.stream-mode body {
+  overflow: visible !important;
+  scroll-behavior: auto !important;
+  scroll-snap-type: none !important;
+  overscroll-behavior: none !important;
+  overflow-anchor: none !important;
+  scroll-snap-align: none !important;
+}
+
+/* Enhanced fix for unwanted scrolling in video player and stream container */
+.scroll-lock {
+  overscroll-behavior: contain;
+  position: relative;
+  touch-action: pan-x pan-y;
+  scroll-behavior: auto !important;
+  scroll-padding: 0 !important;
+  scroll-snap-type: none !important;
+  scroll-snap-align: none !important;
+  scroll-margin: 0 !important;
+}
+
+/* Fix for video player to prevent triggering scroll - improved version */
+.video-player-container {
+  touch-action: none !important;
+  pointer-events: auto;
+  overscroll-behavior: none !important;
+  -webkit-overflow-scrolling: none !important;
+  overflow: hidden !important;
+  contain: content; /* Use content containment for better performance */
+  scroll-snap-type: none !important;
+  scroll-snap-align: none !important;
+  scroll-snap-stop: normal !important;
+  scroll-margin: 0 !important;
+  scroll-padding: 0 !important;
+}
+
+/* Stream content container - prevent scrolling issues */
+#stream-content {
+  scroll-snap-type: none !important;
+  overscroll-behavior: none !important;
+  contain: layout; /* Optimize rendering performance */
+  scroll-behavior: auto !important;
+  overflow-anchor: none !important; /* Prevents browser from jumping to content */
+  scroll-margin-block-start: 5rem;
+  scroll-snap-align: none !important; /* Prevent scroll snapping */
+  scroll-snap-stop: normal !important;
+  scrollbar-gutter: stable; /* Prevent layout shift from scrollbars */
+  scroll-margin: 0 !important;
+  scroll-padding: 0 !important;
+}
+
+/* Complete prevention of auto-scrolling for all stream description elements */
+.stream-description, 
+.stream-info,
+.streamer-profile, 
+.interactive-features,
+.donation-panel,
+.creator-tools {
+  scroll-margin-block-start: 999999px !important; /* Extreme value to ensure it's never a scroll target */
+  overflow-anchor: none !important;
+  contain: content;
+  scroll-snap-align: none !important;
+  scroll-snap-stop: normal !important;
+  overscroll-behavior: none !important;
+  scroll-margin: 0 !important;
+  scroll-padding: 0 !important;
+}
+
+/* Prevent any focus-triggered scrolling */
+*:focus {
+  scroll-margin-block: 0 !important;
+  scroll-margin: 0 !important;
+  outline: none !important;
+}
+
+/* Disable unwanted scroll interactions for iframes while keeping them interactive */
+iframe {
+  pointer-events: auto;
+  contain: strict; /* Use strict containment for iframes */
+}
+
+/* Fix for input elements to ensure they're usable */
+input, textarea, [role="slider"], button {
+  touch-action: auto !important; /* Ensure inputs are usable */
+  pointer-events: auto !important;
+}
+
+/* Performance optimizations for animations */
+.performance-boost {
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Hardware acceleration */
+  backface-visibility: hidden; /* Prevent render flashes */
+}
+
+/* Performance class for elements that fade in/out */
+.fade-optimized {
+  will-change: opacity;
+  contain: layout style;
+}
+
+/* Image error handling and fallbacks */
+.img-with-fallback {
+  background-color: #1a1a1a; /* Dark fallback background */
+  min-height: 100px;
+  position: relative;
+}
+
+.img-with-fallback::after {
+  content: attr(data-alt);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #888;
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Hero section fallback styles */
+.hero-section-fallback {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+/* Fix for passive event listeners warning */
+.touch-action-none {
+  touch-action: none;
+}
+
+.touch-action-pan-y {
+  touch-action: pan-y;
+}
+
+/* Performance optimizations for images */
+.image-optimize {
+  content-visibility: auto;
+  contain: layout paint;
+  will-change: transform;
+}
+
+/* Note: Most styling should be using Tailwind utility classes directly in the components */
